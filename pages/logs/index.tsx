@@ -13,21 +13,25 @@ export default function Logs() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "98vh",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "0.5rem",
-      }}
-    >
-      {logs.map((log, index) => (
-        <button key={index} onClick={() => push("./logs/" + log)}>
-          {log}
-        </button>
-      ))}
-    </div>
-  );
+    <>
+      <nav>
+        <a href="/">GO TO HOME</a>
+      </nav>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "98vh",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
+        {logs.map((log, index) => (
+          <button key={index} onClick={() => push("./logs/" + log)}>
+            {log}
+          </button>
+        ))}
+      </div>
+    </>);
 }

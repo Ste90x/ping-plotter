@@ -6,7 +6,7 @@ export const triggerPinging = (minutes: number = 1): Promise<string[]> => {
   const TIME = minutes * 1000 * 60;
   const pingCP = cp.spawn("ping", ["google.com"]);
   console.log(
-    `ping child process started for ${TIME} minute(s) with process id:`,
+    `ping child process started for ${minutes} minute(s) with process id:`,
     pingCP.pid
   );
 

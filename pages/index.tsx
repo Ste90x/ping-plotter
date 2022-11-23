@@ -21,10 +21,9 @@ ChartJS.register(
   Legend
 );
 
-const MINUTES_TO_BE_LOGGED = 1;
-
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
+  const [minutes, setMinutes] = useState<number>(1)
 
   const trigger = useCallback(
     (minutes: number) =>
@@ -37,41 +36,52 @@ export default function Home() {
     []
   );
 
+  const handleMinutesInput = useCallback((event: any) => {
+    setMinutes(event.target.value)
+  }, [])
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "98vh",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <button
+    <>
+      <nav>
+        <a href="/logs">GO TO LOGS</a>
+      </nav>
+      <div
         style={{
-          height: "5rem",
-          width: "15rem",
+          display: "flex",
+          flexDirection: "column",
+          height: "98vh",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        onClick={() => trigger(MINUTES_TO_BE_LOGGED)}
       >
-        TRIGGER PING LOGGING
-      </button>
-      {results.length > 0 && (
-        <Line
-          options={{
-            borderColor: "blue",
-            color: "black",
+        <input type="number" value={minutes} onChange={handleMinutesInput} />
+        <button
+          style={{
+            height: "5rem",
+            width: "15rem",
           }}
-          data={{
-            labels: [...results.map((_, index) => index + 1), "..."],
-            datasets: [
-              {
-                data: results.map((data) => Number(data)),
-              },
-            ],
-          }}
-        />
-      )}
-    </div>
+          onClick={() => trigger(minutes)}
+        >
+          TRIGGER PING LOGGING
+        </button>
+        {/* show some kind of timer */}
+        {results.length > 0 && (
+          <Line
+            options={{
+              borderColor: "blue",
+              color: "black",
+            }}
+            data={{
+              labels: [...results.map((_, index) => index + 1), "..."],
+              datasets: [
+                {
+                  data: results.map((data) => Number(data)),
+                },
+              ],
+            }}
+          />
+        )}
+      </div>
+    </>
   );
 }
